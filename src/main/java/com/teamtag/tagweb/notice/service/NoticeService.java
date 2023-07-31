@@ -32,12 +32,16 @@ public class NoticeService {
     public List<NoticeListDTO> getNoticeList() {
         List<NoticeListDTO> boardList = noticeRepository.findAllBoardList();
         int listCount = noticeRepository.countAllBoardList();
-        for (int i = 1; i < boardList.size()+1; i++) {
+        for (int i = 0; i < boardList.size(); i++) {
             NoticeListDTO dto = boardList.get(i);
-            dto.serialNum = i;
-            dto.listCount = listCount;
+            dto.serialNum = i+1;
         }
         return boardList;
+    }
+
+    public int countPage(int listCount) {
+        int totalPage = (int) Math.ceil((double) listCount / 10);
+        return totalPage;
     }
 
 //

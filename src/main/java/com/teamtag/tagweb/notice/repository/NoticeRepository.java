@@ -19,5 +19,7 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity,Integer>{
     @Query("SELECT COUNT(WL) FROM NoticeEntity WL WHERE WL.deleteNum = 0")
     int countAllBoardList();
 
+    Optional<NoticeEntity> findById(int id);
+
 
 }

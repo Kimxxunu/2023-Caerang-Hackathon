@@ -15,6 +15,24 @@ public class NoticeViewDTO {
 
     private String modifyTime;
 
+    private String link;
+
+    public int getSerialNum() {
+        return serialNum;
+    }
+
+    public void setSerialNum(int serialNum) {
+        this.serialNum = serialNum;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     public String getTitle() {
         return title;
     }

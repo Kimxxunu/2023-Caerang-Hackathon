@@ -15,10 +15,9 @@ public class WriteDTO {
     private String contents;
     //추가받은 링크
     private String link;
-
-
+    //이미지경로(필수사항 아님)
     private String imageUrl;
-
+    //조회수
     private int viewCount = 0;
 
 

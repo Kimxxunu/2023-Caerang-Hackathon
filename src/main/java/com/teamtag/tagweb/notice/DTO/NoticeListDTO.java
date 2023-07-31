@@ -16,7 +16,5 @@ public class NoticeListDTO {
     }
 
     public int serialNum; //현재 글 번호
-    public int listCount; //게시물 갯수
-
 
 }
