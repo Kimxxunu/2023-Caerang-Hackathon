@@ -1,7 +1,7 @@
 package com.teamtag.tagweb.board.entity;
 
-import com.sun.istack.NotNull;
-import com.teamtag.tagweb.board.dto.BoardDto;
+
+import com.teamtag.tagweb.board.enumtype.BoardType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -24,6 +24,9 @@ public class BoardEntity {
     private String article;
 
     private String url;
+
+    @Enumerated(EnumType.STRING)
+    private BoardType boardType;
 
     public String getTitle() {
         return title;

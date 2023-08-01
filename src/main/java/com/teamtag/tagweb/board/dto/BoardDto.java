@@ -1,5 +1,6 @@
 package com.teamtag.tagweb.board.dto;
 
+import com.teamtag.tagweb.board.entity.BoardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,6 @@ public class BoardDto {
     private String title;
     private String article;
     private String url;
-    //private String viewcount;
+
 
 }
