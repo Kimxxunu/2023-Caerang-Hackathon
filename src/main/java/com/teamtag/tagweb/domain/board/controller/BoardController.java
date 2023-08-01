@@ -1,8 +1,8 @@
-package com.teamtag.tagweb.board.controller;
+package com.teamtag.tagweb.domain.board.controller;
 
-import com.teamtag.tagweb.board.dto.BoardDto;
-import com.teamtag.tagweb.board.enumtype.BoardType;
-import com.teamtag.tagweb.board.service.BoardServiceImpl;
+import com.teamtag.tagweb.domain.board.dto.BoardDto;
+import com.teamtag.tagweb.domain.board.enumtype.BoardType;
+import com.teamtag.tagweb.domain.board.service.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

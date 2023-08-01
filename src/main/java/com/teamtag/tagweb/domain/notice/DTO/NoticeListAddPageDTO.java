@@ -4,7 +4,6 @@ import java.util.List;
 
 public class NoticeListAddPageDTO {
     private List<NoticeListDTO> noticeListDTOS;
-
     private int totalPages  ;
 
     public NoticeListAddPageDTO(List<NoticeListDTO> noticeListDTOS, int totalPages) {

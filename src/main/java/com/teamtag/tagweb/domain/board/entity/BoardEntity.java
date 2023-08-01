@@ -1,7 +1,7 @@
-package com.teamtag.tagweb.board.entity;
+package com.teamtag.tagweb.domain.board.entity;
 
 
-import com.teamtag.tagweb.board.enumtype.BoardType;
+import com.teamtag.tagweb.domain.board.enumtype.BoardType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

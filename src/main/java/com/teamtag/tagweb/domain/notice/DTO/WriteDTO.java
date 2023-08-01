@@ -1,8 +1,5 @@
 package com.teamtag.tagweb.domain.notice.DTO;
-
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,13 +17,9 @@ public class WriteDTO {
     //조회수
     private int viewCount = 0;
 
-
-
     //작성시간
     LocalDateTime currentTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String writeTime = currentTime.format(formatter);
-
-
 
 }

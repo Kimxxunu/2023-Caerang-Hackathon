@@ -1,9 +1,9 @@
-package com.teamtag.tagweb.board.service;
+package com.teamtag.tagweb.domain.board.service;
 
-import com.teamtag.tagweb.board.dto.BoardDto;
-import com.teamtag.tagweb.board.entity.BoardEntity;
-import com.teamtag.tagweb.board.enumtype.BoardType;
-import com.teamtag.tagweb.board.repository.BoardRepository;
+import com.teamtag.tagweb.domain.board.dto.BoardDto;
+import com.teamtag.tagweb.domain.board.entity.BoardEntity;
+import com.teamtag.tagweb.domain.board.enumtype.BoardType;
+import com.teamtag.tagweb.domain.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

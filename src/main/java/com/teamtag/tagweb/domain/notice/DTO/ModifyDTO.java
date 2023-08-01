@@ -2,7 +2,6 @@ package com.teamtag.tagweb.domain.notice.DTO;
 
 public class ModifyDTO {
 
-
     private String title;
     private String contents;
     private String link;

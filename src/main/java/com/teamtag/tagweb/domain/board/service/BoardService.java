@@ -1,8 +1,8 @@
-package com.teamtag.tagweb.board.service;
+package com.teamtag.tagweb.domain.board.service;
 
-import com.teamtag.tagweb.board.dto.BoardDto;
-import com.teamtag.tagweb.board.entity.BoardEntity;
-import com.teamtag.tagweb.board.enumtype.BoardType;
+import com.teamtag.tagweb.domain.board.dto.BoardDto;
+import com.teamtag.tagweb.domain.board.entity.BoardEntity;
+import com.teamtag.tagweb.domain.board.enumtype.BoardType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

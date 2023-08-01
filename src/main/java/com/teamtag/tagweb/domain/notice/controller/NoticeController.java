@@ -1,5 +1,4 @@
     package com.teamtag.tagweb.domain.notice.controller;
-
     import com.fasterxml.jackson.databind.ObjectMapper;
     import com.teamtag.tagweb.domain.notice.DTO.*;
     import com.teamtag.tagweb.domain.notice.repository.NoticeRepository;
@@ -7,10 +6,11 @@
     import com.teamtag.tagweb.domain.notice.service.NoticeService;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.data.domain.Page;
+    import org.springframework.http.HttpStatus;
     import org.springframework.http.MediaType;
+    import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.*;
     import org.springframework.web.multipart.MultipartFile;
-
     import java.io.IOException;
     import java.nio.file.Files;
     import java.nio.file.Paths;
@@ -55,20 +55,32 @@
         }
 
 
-        //공지사항리스트를 반환한다.
+        //게시물 리스트로 이동하는 페이지 + 페이징 기능 + 검색기능()
         @GetMapping("/list/{page}")
-        public NoticeListAddPageDTO NoticeList(@PathVariable String page) {
+        public ResponseEntity<NoticeListAddPageDTO> NoticeList(@PathVariable String page,
+                                                               @RequestParam(required = false) String searchTitle,
+                                                               @RequestParam(required = false) String searchContainer) {
             int pageNumber;
             try {
                 pageNumber = Integer.parseInt(page);
             } catch (NumberFormatException e) {
                 pageNumber = 0;  // 잘못된 페이지 번호가 들어오면 0을 기본값으로 사용
             }
-            Page<NoticeListDTO> noticeList = noticeService.getNoticeList(pageNumber);
-            int totalPage = noticeList.getTotalPages();
-            NoticeListAddPageDTO noticeListAddPageDTO = new NoticeListAddPageDTO(noticeList.getContent(), totalPage);
-            System.out.println("페이지수" + totalPage);
-            return noticeListAddPageDTO;
+            try {
+                Page<NoticeListDTO> noticeList;
+                if(searchTitle != null) {
+                    noticeList = noticeService.getNoticeListByTitle(pageNumber, searchTitle);
+                } else if(searchContainer != null) {
+                    noticeList = noticeService.getNoticeListByContent(pageNumber, searchContainer);
+                } else {
+                    noticeList = noticeService.getNoticeList(pageNumber);
+                }
+                int totalPage = noticeList.getTotalPages();
+                NoticeListAddPageDTO noticeListAddPageDTO = new NoticeListAddPageDTO(noticeList.getContent(), totalPage);
+                return new ResponseEntity<>(noticeListAddPageDTO, HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
 
         //공지사항 게시물에 직접 들어갔을 때
@@ -154,8 +166,6 @@
             noticeRepository.save(notice);
         }
 
-
-
-
-
     }
+
+    //게시판 기능 끝~~~

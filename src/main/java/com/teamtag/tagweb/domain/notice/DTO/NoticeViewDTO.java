@@ -4,17 +4,11 @@ public class NoticeViewDTO {
 
     public int serialNum;
     private String title;
-
     private String writeTime;
-
     private int viewCount;
-
     private String contents;
-
     private String imageUrl;
-
     private String modifyTime;
-
     private String link;
 
     public int getSerialNum() {

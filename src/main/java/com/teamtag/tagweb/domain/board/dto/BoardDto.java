@@ -1,6 +1,6 @@
-package com.teamtag.tagweb.board.dto;
+package com.teamtag.tagweb.domain.board.dto;
 
-import com.teamtag.tagweb.board.entity.BoardEntity;
+import com.teamtag.tagweb.domain.board.entity.BoardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

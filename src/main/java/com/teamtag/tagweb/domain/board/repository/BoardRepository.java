@@ -1,7 +1,7 @@
-package com.teamtag.tagweb.board.repository;
+package com.teamtag.tagweb.domain.board.repository;
 
-import com.teamtag.tagweb.board.entity.BoardEntity;
-import com.teamtag.tagweb.board.enumtype.BoardType;
+import com.teamtag.tagweb.domain.board.entity.BoardEntity;
+import com.teamtag.tagweb.domain.board.enumtype.BoardType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
