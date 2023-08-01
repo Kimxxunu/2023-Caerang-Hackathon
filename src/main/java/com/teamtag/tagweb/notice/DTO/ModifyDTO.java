@@ -2,16 +2,22 @@ package com.teamtag.tagweb.notice.DTO;
 
 public class ModifyDTO {
 
+
     private String title;
     private String contents;
     private String link;
+    private int id;
     private String imageUrl;
 
-    public ModifyDTO(String title, String contents, String link, String imageUrl) {
-        this.title = title;
-        this.contents = contents;
-        this.link = link;
-        this.imageUrl = imageUrl;
+    public ModifyDTO() {
+
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

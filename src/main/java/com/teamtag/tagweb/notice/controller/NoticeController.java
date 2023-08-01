@@ -6,7 +6,6 @@
     import com.teamtag.tagweb.notice.repository.NoticeRepository;
     import com.teamtag.tagweb.notice.service.NoticeService;
     import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
     import org.springframework.http.MediaType;
     import org.springframework.web.bind.annotation.*;
     import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +16,7 @@
     import java.time.LocalDateTime;
     import java.time.format.DateTimeFormatter;
     import java.util.List;
+    import java.util.NoSuchElementException;
 
     @RestController
     @RequestMapping("/api/notice")
@@ -53,6 +53,7 @@
             }
             noticeService.write(writeDTO);
         }
+
         //공지사항리스트를 반환한다.
         @GetMapping("/list")
         public NoticeListAddPageDTO NoticeList() {
@@ -94,31 +95,24 @@
                         System.out.println("해당 게시물의 ID를 찾을 수 없습니다");
                         return new RuntimeException("해당 게시물의 ID를 찾을 수 없습니다");
                     });
-
             // DB에서 가져온 데이터를 사용하여 ModifyDTO 객체를 생성
-            ModifyDTO modifyDTO = new ModifyDTO(
-                    notice.getTitle(),
-                    notice.getContents(),
-                    notice.getLink(),
-                    notice.getImageUrl()
-            );
+            ModifyDTO modifyDTO = new ModifyDTO();
+            modifyDTO.setTitle(notice.getTitle());
+            modifyDTO.setContents(notice.getContents());
+            modifyDTO.setLink(notice.getLink());
+            modifyDTO.setImageUrl(notice.getImageUrl());
             return modifyDTO;
         }
 
-        //수정완료 버튼 클릭시 변경사항을 업데이트하는 메소드
-        @PostMapping(value = "/modifySave/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-        public void modifySave(@PathVariable("id") int id, @RequestPart("modifyDTO") String modifyJsonData,
+
+
+        //수정완료 버튼 클릭시 변경사항을 업데이트하는 메소드.
+        @PostMapping(value = "/updateNotice", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+        public void modifySave(@RequestParam("jsonData") String jsonData,
                                @RequestPart(value = "image", required = false) MultipartFile imageData) throws IOException {
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            ModifyDTO modifyDTO = objectMapper.readValue(modifyJsonData, ModifyDTO.class);
-
-            NoticeEntity notice = noticeRepository.findById(id)
-                    .orElseThrow(() -> {
-                        System.out.println("해당 게시물의 ID를 찾을 수 없습니다");
-                        return new RuntimeException("해당 게시물의 ID를 찾을 수 없습니다");
-                    });
-
+            ModifyDTO modifyDTO = new ObjectMapper().readValue(jsonData, ModifyDTO.class);
+            NoticeEntity notice = noticeRepository.findById(modifyDTO.getId())
+                    .orElseThrow(() -> new NoSuchElementException("해당 게시물의 ID를 찾을 수 없습니다."));
             if (imageData != null && !imageData.isEmpty()) {
                 String uploadDir = "src/main/resources/static/img/"; // 이미지를 저장할 디렉토리 경로
                 byte[] bytes = imageData.getBytes();
@@ -132,7 +126,6 @@
                     notice.setImageUrl("img/"+fileName);
                 }
             }
-
             notice.setTitle(modifyDTO.getTitle());
             notice.setContents(modifyDTO.getContents());
             notice.setLink(modifyDTO.getLink());
@@ -145,28 +138,8 @@
 
 
 
-
-//        @PostMapping("/modifySave/{id}")
-//        public void modifySave(@PathVariable("id") int id, @RequestBody ModifyDTO modifyDTO,){
-//            NoticeEntity notice = noticeRepository.findById(id)
-//                    .orElseThrow(() -> {
-//                        System.out.println("해당 게시물의 ID를 찾을 수 없습니다");
-//                        return new RuntimeException("해당 게시물의 ID를 찾을 수 없습니다");
-//                    });
-//
-//            notice.setTitle(modifyDTO.getTitle());
-//            notice.setContents(modifyDTO.getContents());
-//            notice.setLink(modifyDTO.getLink());
-//            notice.setImageUrl(modifyDTO.getImageUrl());
-//
-//            LocalDateTime currentTime = LocalDateTime.now();
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            notice.setModifyTime(currentTime.format(formatter));
-//            noticeRepository.save(notice);
-//        }
-
         //게시글 삭제하는 메소드
-        @PostMapping("/delete/{id}")
+        @PostMapping("/deleteNotice/{id}")
         public void deleteNotice(@PathVariable int id) {
             NoticeEntity notice = noticeRepository.findById(id)
                     .orElseThrow(() -> {
